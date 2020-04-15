@@ -1,0 +1,8 @@
+<p>Sidebar</p>
+<form (ngSubmit)="onSubmit()" [formGroup]="myForm">
+    <mat-form-field floatLabel="auto">
+        <mat-label>Query String</mat-label>
+        <input matInput formControlName="query">
+    </mat-form-field>
+    <button mat-stroked-button type="submit" [disabled]="!myForm.valid">Send</button>
+</form>

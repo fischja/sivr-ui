@@ -1,0 +1,12 @@
+mat-drawer-container {
+    height: 100%;
+}
+
+mat-drawer, mat-drawer-content {
+    padding: 16px;
+}
+
+mat-drawer {
+    background-color: lightcoral;
+    width: 400px;
+}
