@@ -2,11 +2,15 @@ mat-drawer-container {
     height: 100%;
 }
 
-mat-drawer, mat-drawer-content {
-    padding: 16px;
+mat-drawer {
+    padding: 15px;
+}
+
+mat-drawer-content {
+    padding: 10px;
+
 }
 
 mat-drawer {
-    background-color: lightcoral;
-    width: 400px;
+    width: 350px;
 }

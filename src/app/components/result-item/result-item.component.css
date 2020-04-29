@@ -1,0 +1,9 @@
+.md-unstyled-image img{
+    max-height: 100%;
+    width: auto;
+    height: auto !important; /* needs to be important because md-card also sets it that way */
+  }
+
+.example-card {
+    display: block;
+  }

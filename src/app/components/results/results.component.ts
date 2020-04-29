@@ -9,6 +9,9 @@ import { ResultsService } from 'src/app/services/results.service';
 })
 export class ResultsComponent implements OnInit {
   results: Result[];
+  
+  tempResults: number[] = Array.from(Array(50).keys());
+
 
   constructor(private resultsService: ResultsService) { }
 
