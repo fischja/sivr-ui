@@ -9,6 +9,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +21,11 @@ import { ResultsComponent } from './components/results/results.component';
 import { ResultItemComponent } from './components/result-item/result-item.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ColorPickerModule } from 'ngx-color-picker';
+import { MatIconModule } from '@angular/material/icon';
+import { MatRippleModule } from '@angular/material/core';
+import { MatSliderModule } from '@angular/material/slider';
+import { CountdownModule } from 'ngx-countdown';
 
 @NgModule({
   declarations: [
@@ -40,6 +49,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatCardModule,
     MatAutocompleteModule,
     FlexLayoutModule,
+    ColorPickerModule,
+    MatButtonToggleModule,
+    MatIconModule,
+    MatRippleModule,
+    MatSliderModule,
+    CountdownModule,
+    OverlayModule,
+    MatSelectModule,
+    MatDividerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

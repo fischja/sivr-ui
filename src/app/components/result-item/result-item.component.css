@@ -4,6 +4,28 @@
     height: auto !important; /* needs to be important because md-card also sets it that way */
   }
 
-.example-card {
-    display: block;
+  .md-unstyled-image div{
+    opacity: 0;
   }
+
+  .myClass img {
+    visibility: hidden;
+  }
+
+/* The overlay effect (full height and width) - lays on top of the container and over the image */
+.myClass div{
+  opacity: 1;
+  transition: .3s ease;
+}
+
+/* The icon inside the overlay is positioned in the middle vertically and horizontally */
+.icon {
+  color: rgba(18, 161, 54, 0.678);
+  position: absolute;
+  top: 20%;
+  left: 32.5%;
+}
+
+.mat-icon {
+  font-size: 60px;
+}

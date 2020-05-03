@@ -1,23 +1,121 @@
+<!--
 <p>Sidebar</p>
 <form (ngSubmit)="onSubmit()" [formGroup]="myForm">
-    <mat-form-field floatLabel="auto">
-        <mat-label>Query String</mat-label>
-        <input matInput formControlName="query">
-    </mat-form-field>
-    <button mat-stroked-button type="submit" [disabled]="!myForm.valid">Send</button>
+  <mat-form-field floatLabel="auto">
+    <mat-label>Query String</mat-label>
+    <input matInput formControlName="query">
+  </mat-form-field>
+  <button mat-stroked-button type="submit" [disabled]="!myForm.valid">Send</button>
 </form>
-<form (ngSubmit)="onSubmitConcept()" class="example-form">
-    <mat-form-field class="example-full-width">
-      <input type="text"
-             placeholder="Pick one"
-             aria-label="Number"
-             matInput
-             [formControl]="myControl"
-             [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete" (optionSelected)='onSubmitConcept($event.option.value)'>
-        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-          {{option}}
-        </mat-option>
-      </mat-autocomplete>
+-->
+<mat-grid-list cols="5" rowHeight="50px" [ngStyle]="{'margin-bottom': '10px', 'margin-top': '10px'}">
+  <mat-grid-tile></mat-grid-tile>
+  <mat-grid-tile colspan="3">
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <input type="text" placeholder="Concept" aria-label="Number" matInput [formControl]="myControl"
+          [matAutocomplete]="auto">
+        <button mat-button *ngIf="myControl.value" matSuffix mat-icon-button aria-label="Clear"
+          (click)="myControl.setValue('')">
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)='onSubmitConcept($event.option.value)'>
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+  </mat-grid-tile>
+  <mat-grid-tile></mat-grid-tile>
+</mat-grid-list>
+
+<mat-grid-list cols="4" rowHeight="3:2" gutterSize="1px" [ngStyle]="{'margin-bottom': '20px'}">
+  <mat-grid-tile (click)="foo(tile)" matRipple *ngFor="let tile of tiles"
+    [ngStyle]="{'background': tile.color, 'cursor': 'pointer'}">
+    <div *ngIf="tile.selected" class="myClass">
+      <a href="#">
+        <mat-icon>check_circle</mat-icon>
+      </a>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<mat-grid-list cols="1" rowHeight="50px" [ngStyle]="{'margin-bottom': '10px'}">
+  <mat-grid-tile>
+    <mat-button-toggle-group>
+      <mat-button-toggle *ngFor="let mode of queryModes" [checked]="mode.value==0" (change)="onQueryModeChange(mode)">
+        {{mode.text}}
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<mat-grid-list cols="1" rowHeight="50px" [ngStyle]="{'margin-bottom': '20px'}">
+  <mat-grid-tile>
+    <button mat-stroked-button type="submit" [disabled]="selectedConcept==null" (click)="onSubmit()">Send</button>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<mat-divider></mat-divider>
+<mat-grid-list cols="2" rowHeight="50px" [ngStyle]="{'margin-top': '20px', 'margin-bottom': '20px'}">
+  <mat-grid-tile colspan="2">
+    <mat-form-field [ngStyle]="{'height': '100%', 'width': '75%'}">
+      <mat-label>Server</mat-label>
+      <input matInput type="text" placeholder="e.g. localhost:8080" (input)="onServerNameChange($event.target.value)">
     </mat-form-field>
-  </form>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <mat-form-field [ngStyle]="{'width': '50%', 'height': '100%'}">
+      <mat-label>Team</mat-label>
+      <mat-select (selectionChange)='onTeamChange($event.value)'>
+        <mat-option *ngFor="let team of teams" [value]="team">
+          {{team}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <mat-form-field [ngStyle]="{'width': '50%', 'height': '100%'}">
+      <mat-label>Member</mat-label>
+      <mat-select (selectionChange)='onMemberChange($event.value)'>
+        <mat-option *ngFor="let member of members" [value]="member">
+          {{member}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-grid-tile>
+</mat-grid-list>
+
+
+<mat-divider></mat-divider>
+
+<mat-grid-list cols="1" rowHeight="50px" [ngStyle]="{'margin-top': '20px'}">
+  <mat-grid-tile>
+    <countdown #cd [hidden]="countdownHidden" [config]="{demand: true, leftTime: leftTime, format: 'mm:ss'}">
+    </countdown>
+    <mat-form-field *ngIf="!timeInputHidden" [ngStyle]="{'width': '25%', 'height': '100%'}">
+      <mat-label>Minutes</mat-label>
+      <mat-select (selectionChange)='onMinuteChange($event.value)'>
+        <mat-option *ngFor="let minute of minutes" [value]="minute">
+          {{minute}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-grid-tile>
+</mat-grid-list>
+<mat-grid-list cols="1" rowHeight="30px">
+  <mat-grid-tile>
+    <div class="example-button-row">
+      <button mat-icon-button (click)="onPauseClick()">
+        <mat-icon>pause</mat-icon>
+      </button>
+      <button mat-icon-button (click)="onResumeClick()">
+        <mat-icon>play_arrow</mat-icon>
+      </button>
+      <button mat-icon-button (click)="onRestartClick()">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>

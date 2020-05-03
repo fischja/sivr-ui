@@ -19,14 +19,12 @@ export class QueryService {
     private resultsService: ResultsService,
   ) { }
 
-  sendConceptQuery(conceptId: number) {
-    this.getConceptResult(conceptId).subscribe(x => {
-      console.log(x);
+  sendConceptQuery(conceptId: number, colorId: string, queryMode: number) {
+    this.getConceptResult(conceptId, colorId, queryMode).subscribe(x => {
       let obs: Observable<Blob>[] = new Array<Observable<Blob>>();
       x.forEach(v => {
         obs.push(this.thumbnailService.get(v.v3CId, v.keyframeNumber).pipe(
           catchError(val => of(null)),
-          tap(img => console.log("heyyyyyy")),
           tap(img => { v.thumbnail = img; })
         ));
       });
@@ -36,7 +34,6 @@ export class QueryService {
 
         const y = [];
         x.forEach(val => {
-          console.log(val.thumbnail)
           if (val.thumbnail != null) {
             y.push(val);
           }
@@ -47,48 +44,12 @@ export class QueryService {
     });
   }
 
-  sendTextQuery(queryText: string) {
-    this.get(queryText).subscribe(x => {
-      // this.resultsService.subject.next(x);
-      let obs: Observable<Blob>[] = new Array<Observable<Blob>>();
-      x.forEach(v => {
-        obs.push(this.thumbnailService.get(v.v3CId, v.keyframeNumber).pipe(
-          catchError(val => of(null)),
-          tap(img => console.log("heyyyyyy")),
-          tap(img => { v.thumbnail = img; })
-        ));
-      });
-
-      zip(...obs).subscribe(arr => {
-        console.log("done")
-
-        const y = [];
-        x.forEach(val => {
-          console.log(val.thumbnail)
-          if (val.thumbnail != null) {
-            y.push(val);
-          }
-        });
-
-        this.resultsService.subject.next(y);
-      });
-    });
-  }
-
-  private getConceptResult(conceptId: number): Observable<Result[]> {
-    // return from([[new Result(37, 10), new Result(37, 25)]]);
+  private getConceptResult(conceptId: number, colorId: string, queryMode: number): Observable<Result[]> {
     return this.http.get<Result[]>(this.conceptQueryUrl, {
       params: {
-        id: conceptId.toString(),
-      },
-    });
-  }
-
-  private get(queryText: string): Observable<Result[]> {
-    return from([[new Result(37, 10), new Result(37, 25)]]);
-    return this.http.get<any[]>(this.baseUrl, {
-      params: {
-        text: queryText,
+        conceptId: conceptId.toString(),
+        colorId: colorId,
+        queryMode: queryMode.toString(),
       },
     });
   }

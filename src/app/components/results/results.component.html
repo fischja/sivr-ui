@@ -2,8 +2,9 @@
 <app-result-item *ngFor="let result of results" [result]="result">
 </app-result-item>
 -->
-<mat-grid-list cols="7" rowHeight="100px" gutterSize="0px" >
-    <mat-grid-tile *ngFor="let item of results">
-        <app-result-item [blob]=item.thumbnail></app-result-item>    
+<mat-grid-list cols="7" rowHeight="100px" gutterSize="0px">
+    <mat-grid-tile [ngStyle]="{'cursor': 'pointer'}" matRipple
+        *ngFor="let result of results">
+        <app-result-item [result]=result></app-result-item>
     </mat-grid-tile>
 </mat-grid-list>
