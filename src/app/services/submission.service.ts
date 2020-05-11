@@ -13,10 +13,10 @@ export class SubmissionService {
   constructor(private http: HttpClient) { }
 
   submit(result: Result) {
-    let url = "http://" + this.serverName + "/vbs/submit";
+    let url = "https://" + this.serverName + "/vbs/submit";
     console.log(url)
     
-    return this.http.post(url, {
+    return this.http.get(url, {
       params: {
         team: this.team.toString(),
         member: this.member.toString(),
