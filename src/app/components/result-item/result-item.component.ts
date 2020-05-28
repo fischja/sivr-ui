@@ -41,14 +41,14 @@ export class ResultItemComponent implements OnInit {
   onSubmitResult() {
     this.submissionService.submit(this._result).subscribe({
       next: (v) => {
+        console.log("response!")
+        console.log(v);
         this.submitted = true
 
         if (!(this._result.v3CId in this.resultsService.submittedResults))
           this.resultsService.submittedResults[this._result.v3CId] = new Set<number>();
 
         this.resultsService.submittedResults[this._result.v3CId].add(this._result.keyframeNumber)
-
-        console.log(this.resultsService.submittedResults)
       }
     });
   }

@@ -149,8 +149,6 @@ export class SidebarComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.selectedQueryMode)
-
     let conceptId = this.conceptService.concepts[this.selectedConcept]
     this.queryService.sendConceptQuery(conceptId, this.selectedTile.color, this.selectedQueryMode.value);
   }

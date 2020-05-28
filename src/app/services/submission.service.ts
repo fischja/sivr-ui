@@ -13,17 +13,16 @@ export class SubmissionService {
   constructor(private http: HttpClient) { }
 
   submit(result: Result) {
-    let url = "https://" + this.serverName + "/vbs/submit";
-    console.log(url)
+    let url = "https://interactivevideoretrieval.com/submit/";
+    console.log(result.v3CId.toString().padStart(5, "0"));
+    console.log(result.keyframeNumber.toString());
     
     return this.http.get(url, {
       params: {
-        team: this.team.toString(),
-        member: this.member.toString(),
-        video: result.v3CId.toString(),
-        frame: result.keyframeNumber.toString(),
+        item: result.v3CId.toString().padStart(5, "0"),
+        shot: result.keyframeNumber.toString(),
+        session: "node01lwbiaiv2hrw78o08mi83k3h39",
       },
     });
   }
-
 }
